@@ -36,8 +36,9 @@ function InfoPanel({ village, setDispatch }) {
   return (
     <motion.div
       className="info-card expanded"
-      initial={{ height: 120 }}
-      animate={{ height: 350 }}
+      initial={{ height: 120, width: 400 }}
+      animate={{ height: 330, width: 500 }}
+     
       transition={{ duration: 0.5 }}
     >
       <h2>{village.name}</h2>

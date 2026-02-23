@@ -15,7 +15,6 @@ function StatsBar() {
       })
       .catch(() => {});
   }, []);
-
   const totalVillages = villages.length;
   const critical = villages.filter(v => v.status === "CRITICAL").length;
   const emergency = villages.filter(v => v.status === "EMERGENCY").length;
@@ -25,27 +24,27 @@ function StatsBar() {
   );
 
   return (
-    <div className="stats-bar">
+    <>
       <div className="stat-card">
         <h4>Total Villages</h4>
         <h2>{totalVillages}</h2>
       </div>
 
-      <div className="stat-card warning">
+      <div className="stat-card">
         <h4>Critical</h4>
         <h2>{critical}</h2>
       </div>
 
-      <div className="stat-card danger">
+      <div className="stat-card">
         <h4>Emergency</h4>
         <h2>{emergency}</h2>
       </div>
 
-      <div className="stat-card tanker">
+      <div className="stat-card">
         <h4>Total Tankers</h4>
         <h2>{totalTankers}</h2>
       </div>
-    </div>
+    </>
   );
 }
 
