@@ -16,11 +16,13 @@ function App() {
         💧 JalRakshak – Rural Water Dashboard
       </header>
 
-      {/* Top Stats */}
-      <StatsBar />
+      <div className="stats-bar">
+        <StatsBar />
+      </div>
 
-      {/* Alerts */}
-      <AlertPanel />
+      <div className="alert-panel safe">
+        <AlertPanel />
+      </div>
 
       {/* Main Section */}
       <div className="content">
