@@ -1,79 +1,209 @@
+/* ---------------- Global ---------------- */
 
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: white;
+  overflow: hidden;
 }
 
 .app {
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+/* ---------------- Navbar ---------------- */
 
 .navbar {
-  padding: 20px;
+  padding: 18px;
   text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
+/* ---------------- Layout ---------------- */
+
 .content {
+  flex: 1;
   display: flex;
   gap: 20px;
   padding: 20px;
+  height: calc(100vh - 70px);
 }
+
+/* ---------------- Map Section ---------------- */
 
 .map-section {
   flex: 2;
-  height: 400px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: rgba(255,255,255,0.08);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
 }
 
+/* ---------------- Info Panel ---------------- */
+
 .info-card {
+  flex: 1;
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  padding: 20px;
-  border-radius: 15px;
-  overflow: hidden;
-  transition: 0.4s ease;
-  margin-bottom: 20px;
+  backdrop-filter: blur(14px);
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: 0.3s ease;
 }
 
 .collapsed {
-  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
-.expanded {
-  font-size: 16px;
+.expanded h2 {
+  margin-bottom: 5px;
 }
 
-.risk-badge {
+/* ---------------- Status Badge ---------------- */
+
+.status-badge {
   padding: 6px 14px;
   border-radius: 20px;
-  color: white;
-  display: inline-block;
-  margin-bottom: 15px;
+  font-size: 13px;
   font-weight: bold;
+  display: inline-block;
+  width: fit-content;
 }
 
-.risk-badge.high {
-  background: #ff4b2b;
+.status-badge.safe { background: #2ecc71; }
+.status-badge.watch { background: #f1c40f; color: black; }
+.status-badge.warning { background: #e67e22; }
+.status-badge.critical { background: #e74c3c; }
+.status-badge.emergency { background: #8b0000; }
+
+/* ---------------- Metrics ---------------- */
+
+.metric {
+  font-size: 14px;
+  opacity: 0.9;
 }
 
-.risk-badge.moderate {
-  background: #ff9800;
+/* ---------------- Progress Bar ---------------- */
+
+.progress {
+  height: 8px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
 }
 
-.risk-badge.low {
-  background: #00c853;
+.progress div {
+  height: 100%;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+/* ---------------- Tanker Highlight ---------------- */
+
+.tanker-box {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 165, 0, 0.15);
+  border-left: 4px solid orange;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* ---------------- Dispatch Button ---------------- */
+
+.dispatch-btn {
+  margin-top: auto;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.dispatch-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 114, 255, 0.5);
+}
+
+.dispatch-btn:active {
+  transform: scale(0.96);
+}
+
+.dispatch-btn.attention {
+  background: linear-gradient(135deg, #ff4b2b, #ff0000);
+  animation: pulse 2s infinite;
+}
+
+/* Shine effect */
+
+.dispatch-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transform: skewX(-20deg);
+  transition: 0.6s;
+}
+
+.dispatch-btn:hover::after {
+  left: 130%;
+}
+
+/* ---------------- Emergency Blink ---------------- */
+
+.blink-marker {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ---------------- Pulse ---------------- */
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+
+/* ---------------- Tanker Icon ---------------- */
+
+.tanker-icon {
+  font-size: 28px;
+  transform: translate(-12px, -12px);
 }
