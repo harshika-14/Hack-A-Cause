@@ -16,8 +16,12 @@ function App() {
   useEffect(() => {
     function loadData() {
       fetch("http://172.16.216.219:8000/villages")
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+          return res.json();
+        })
         .then(data => {
+          console.log("✅ Backend data received:", data);
           const formatted = Object.keys(data).map((key, index) => ({
             id: index,
             name: key,
@@ -33,8 +37,10 @@ function App() {
             v => v.status === "EMERGENCY" || v.status === "CRITICAL"
           );
           setAlerts(criticalAndEmergency);
+          console.log("🚨 Alerts calculated:", criticalAndEmergency);
         })
-        .catch(() => {
+        .catch(err => {
+          console.warn("⚠️ Backend unavailable, using mock data:", err.message);
           // Mock data fallback
           const mockData = {
             "Ashta": { status: "WATCH", WSS: "Yes", tankers: 2, soil: 45, groundwater: 8, temp: 32, lat: 21.5, lng: 78.9 },
@@ -59,9 +65,13 @@ function App() {
     }
 
     loadData();
+    console.log("📡 Starting backend data sync (every 5 seconds)...");
     const interval = setInterval(loadData, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      console.log("🛑 Stopped backend data sync");
+    };
   }, []);
 
   return (

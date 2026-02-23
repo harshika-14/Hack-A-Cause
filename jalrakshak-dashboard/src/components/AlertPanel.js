@@ -25,6 +25,7 @@ function AlertPanel({ alerts }) {
         <div key={index} className="alert-item">
           ⚠️ <strong>{village.name}</strong> — Status: <span className={`status-${village.status.toLowerCase()}`}>{village.status}</span>
         </div>
+      ))}
     </div>
   );
 }

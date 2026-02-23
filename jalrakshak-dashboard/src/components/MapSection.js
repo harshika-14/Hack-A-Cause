@@ -11,16 +11,6 @@ import {
 import { useEffect, useState } from "react";
 import L from "leaflet";
 
-/* ---------------- Mock Data (Fallback) ---------------- */
-
-const mockData = {
-  "Ashta": { status: "WATCH", WSS: "Yes", tankers: 2, soil: 45, groundwater: 8, temp: 32, lat: 21.5, lng: 78.9 },
-  "Karegaon": { status: "SAFE", WSS: "Yes", tankers: 1, soil: 65, groundwater: 12, temp: 30, lat: 21.2, lng: 79.3 },
-  "Pulgaon": { status: "CRITICAL", WSS: "No", tankers: 3, soil: 25, groundwater: 4, temp: 35, lat: 20.9, lng: 79.1 },
-  "Jalgaon": { status: "WARNING", WSS: "Partial", tankers: 2, soil: 35, groundwater: 6, temp: 34, lat: 21.4, lng: 79.5 },
-  "Murtijapur": { status: "EMERGENCY", WSS: "No", tankers: 4, soil: 15, groundwater: 2, temp: 36, lat: 20.7, lng: 78.8 }
-};
-
 /* ---------------- Depot Location ---------------- */
 
 const depot = {
@@ -108,7 +98,7 @@ useEffect(() => {
 
   return () => clearInterval(interval);
 
-}, [dispatch]);
+}, [dispatch, selectedVillage]);
 
   return (
     <MapContainer

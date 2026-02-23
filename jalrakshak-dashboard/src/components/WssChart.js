@@ -26,12 +26,23 @@ function WssChart({ village }) {
   useEffect(() => {
     if (!village) return;
 
-    fetch(`http://localhost:8000/history/${village.name}`)
-      .then(res => res.json())
-      .then(data => {
-        setHistory(data);
+    // Try to fetch historical data for the village
+    fetch(`http://172.16.216.219:8000/history/${village.name}`)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
       })
-      .catch(() => {
+      .then(data => {
+        console.log(`✅ History data for ${village.name}:`, data);
+        // Ensure data is an array of 7 days
+        if (Array.isArray(data)) {
+          setHistory(data.slice(0, 7));
+        } else {
+          setHistory(data);
+        }
+      })
+      .catch(err => {
+        console.warn(`⚠️ Could not fetch history for ${village.name}:`, err.message);
         // fallback dummy data if history API not ready
         const dummy = Array.from({ length: 7 }, () =>
           Math.floor(Math.random() * 100)
