@@ -237,3 +237,86 @@ body {
   font-size: 28px;
   transform: translate(-12px, -12px);
 }
+/* ---------------- Stats Bar ---------------- */
+
+.stats-bar {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px 20px 20px;
+}
+
+.stat-card {
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  padding: 18px;
+  border-radius: 16px;
+  text-align: center;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.stat-card h4 {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.stat-card h2 {
+  font-size: 26px;
+  margin: 0;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-card.warning {
+  border-left: 4px solid #e67e22;
+}
+
+.stat-card.danger {
+  border-left: 4px solid #e74c3c;
+}
+
+.stat-card.tanker {
+  border-left: 4px solid #00c6ff;
+}
+/* ---------------- Alert Panel ---------------- */
+
+.alert-panel {
+  margin: 0 20px 20px 20px;
+  padding: 15px;
+  border-radius: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.5s ease;
+}
+
+.alert-panel.safe {
+  background: rgba(46, 204, 113, 0.15);
+  border-left: 4px solid #2ecc71;
+}
+
+.alert-panel.danger {
+  background: rgba(231, 76, 60, 0.15);
+  border-left: 4px solid #e74c3c;
+}
+
+.alert-item {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.chart-container {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}

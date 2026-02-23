@@ -11,6 +11,16 @@ import {
 import { useEffect, useState } from "react";
 import L from "leaflet";
 
+/* ---------------- Mock Data (Fallback) ---------------- */
+
+const mockData = {
+  "Ashta": { status: "WATCH", WSS: "Yes", tankers: 2, soil: 45, groundwater: 8, temp: 32, lat: 21.5, lng: 78.9 },
+  "Karegaon": { status: "SAFE", WSS: "Yes", tankers: 1, soil: 65, groundwater: 12, temp: 30, lat: 21.2, lng: 79.3 },
+  "Pulgaon": { status: "CRITICAL", WSS: "No", tankers: 3, soil: 25, groundwater: 4, temp: 35, lat: 20.9, lng: 79.1 },
+  "Jalgaon": { status: "WARNING", WSS: "Partial", tankers: 2, soil: 35, groundwater: 6, temp: 34, lat: 21.4, lng: 79.5 },
+  "Murtijapur": { status: "EMERGENCY", WSS: "No", tankers: 4, soil: 15, groundwater: 2, temp: 36, lat: 20.7, lng: 78.8 }
+};
+
 /* ---------------- Depot Location ---------------- */
 
 const depot = {
@@ -80,6 +90,15 @@ function MapSection({ setSelectedVillage, selectedVillage, dispatch }) {
           }));
 
           setVillages(formatted);
+        })
+        .catch(err => {
+          console.log("Backend unavailable, using mock data:", err);
+          const formatted = Object.keys(mockData).map((key, index) => ({
+            id: index,
+            name: key,
+            ...mockData[key]
+          }));
+          setVillages(formatted);
         });
     }
 
@@ -92,41 +111,42 @@ function MapSection({ setSelectedVillage, selectedVillage, dispatch }) {
 
   /* -------- Tanker Movement -------- */
 
-  useEffect(() => {
+useEffect(() => {
 
-    if (dispatch && selectedVillage && selectedVillage.tankers > 0) {
+  if (!dispatch || !selectedVillage || selectedVillage.tankers <= 0) return;
+  if (!selectedVillage?.lat || !selectedVillage?.lng) return;
 
-      const duration = 10000;
-      const steps = 150;
-      const intervalTime = duration / steps;
-      let step = 0;
+  let step = 0;
+  const duration = 10000;
+  const steps = 150;
+  const intervalTime = duration / steps;
 
-      const interval = setInterval(() => {
+  const interval = setInterval(() => {
 
-        step++;
-        const progress = step / steps;
+    step++;
+    const progress = step / steps;
 
-        const lat =
-          depot.lat +
-          (selectedVillage.lat - depot.lat) * progress;
+    const lat =
+      depot.lat +
+      (selectedVillage.lat - depot.lat) * progress;
 
-        const lng =
-          depot.lng +
-          (selectedVillage.lng - depot.lng) * progress;
+    const lng =
+      depot.lng +
+      (selectedVillage.lng - depot.lng) * progress;
 
-        setTankerPos([lat, lng]);
+    setTankerPos([lat, lng]);
 
-        if (step >= steps) {
-          clearInterval(interval);
-          alert("🚛 Tanker Successfully Reached Destination!");
-        }
-
-      }, intervalTime);
-
-      return () => clearInterval(interval);
+    if (step >= steps) {
+      clearInterval(interval);
+      setTankerPos(null);
+      alert("🚛 Tanker Successfully Reached Destination!");
     }
 
-  }, [dispatch, selectedVillage]);
+  }, intervalTime);
+
+  return () => clearInterval(interval);
+
+}, [dispatch]);
 
   return (
     <MapContainer

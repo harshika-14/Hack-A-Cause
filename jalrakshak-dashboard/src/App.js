@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./App.css";
 import MapSection from "./components/MapSection";
 import InfoPanel from "./components/InfoPanel";
+import StatsBar from "./components/StatsBar";
+import AlertPanel from "./components/AlertPanel";
+import WssChart from "./components/WssChart";
 
 function App() {
   
@@ -29,6 +32,9 @@ function App() {
          />
         </div>
       </div>
+       <StatsBar />
+       <AlertPanel />
+       <WssChart village={selectedVillage} />
     </div>
   );
 }
