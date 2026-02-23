@@ -1,49 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-function AlertPanel() {
-  const [alerts, setAlerts] = useState([]);
+function AlertPanel({ alerts }) {
 
   useEffect(() => {
-    function loadAlerts() {
-      fetch("http://localhost:8000/villages")
-        .then(res => res.json())
-        .then(data => {
-          const formatted = Object.keys(data).map(key => ({
-            name: key,
-            ...data[key]
-          }));
-
-          const emergencyVillages = formatted.filter(
-            v => v.status === "EMERGENCY" || v.status === "CRITICAL"
-          );
-
-          setAlerts(emergencyVillages);
-        })
-        .catch(() => {});
+    // Alert user when new critical/emergency villages detected
+    if (alerts && alerts.length > 0) {
+      const alertMessage = alerts.map(v => `${v.name}: ${v.status}`).join(", ");
+      console.warn("🚨 Alert:", alertMessage);
     }
+  }, [alerts]);
 
-    loadAlerts();
-    const interval = setInterval(loadAlerts, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (alerts.length === 0) {
+  if (!alerts || alerts.length === 0) {
     return (
-      <div className="alert-panel safe">
-        ✅ All villages are stable.
+      <div className="alert-status">
+        ✅ All villages are stable. No critical alerts.
       </div>
     );
   }
 
   return (
-    <div className="alert-panel danger">
+    <div className="alert-status">
       <h3>🚨 Emergency Alerts</h3>
-      {alerts.map((v, index) => (
+      {alerts.map((village, index) => (
         <div key={index} className="alert-item">
-          ⚠ {v.name} — {v.status}
+          ⚠️ <strong>{village.name}</strong> — Status: <span className={`status-${village.status.toLowerCase()}`}>{village.status}</span>
         </div>
-      ))}
     </div>
   );
 }

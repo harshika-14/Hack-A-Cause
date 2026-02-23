@@ -266,3 +266,70 @@ body {
 .chart-container::-webkit-scrollbar-thumb:hover {
   background: rgba(59, 130, 246, 0.6);
 }
+
+/* ================= ALERT ITEMS ================= */
+
+.alert-status {
+  width: 100%;
+}
+
+.alert-status h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+}
+
+.alert-item:last-child {
+  border-bottom: none;
+}
+
+.status-emergency {
+  color: #ff6b6b;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: rgba(255, 107, 107, 0.15);
+  border-radius: 4px;
+}
+
+.status-critical {
+  color: #ff9999;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: rgba(255, 153, 153, 0.15);
+  border-radius: 4px;
+}
+
+.status-warning {
+  color: #ffd700;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: rgba(255, 215, 0, 0.15);
+  border-radius: 4px;
+}
+
+.status-watch {
+  color: #87ceeb;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: rgba(135, 206, 235, 0.15);
+  border-radius: 4px;
+}
+
+.status-safe {
+  color: #22c55e;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: rgba(34, 197, 94, 0.15);
+  border-radius: 4px;
+}

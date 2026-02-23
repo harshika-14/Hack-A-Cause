@@ -67,47 +67,9 @@ function FlyToVillage({ selectedVillage }) {
 
 /* ---------------- Main Component ---------------- */
 
-function MapSection({ setSelectedVillage, selectedVillage, dispatch }) {
+function MapSection({ setSelectedVillage, selectedVillage, dispatch, villages, alerts }) {
 
-  const [villages, setVillages] = useState([]);
   const [tankerPos, setTankerPos] = useState(null);
-
-  /* -------- Fetch Backend Data -------- */
-
-  useEffect(() => {
-
-    function loadData() {
-      fetch("http://127.0.0.1:8000/villages")
-        .then(res => res.json())
-        .then(data => {
-
-          const formatted = Object.keys(data).map((key, index) => ({
-            id: index,
-            name: key,
-            ...data[key],
-            lat: data[key].lat || 21.1458,
-            lng: data[key].lng || 79.0882
-          }));
-
-          setVillages(formatted);
-        })
-        .catch(err => {
-          console.log("Backend unavailable, using mock data:", err);
-          const formatted = Object.keys(mockData).map((key, index) => ({
-            id: index,
-            name: key,
-            ...mockData[key]
-          }));
-          setVillages(formatted);
-        });
-    }
-
-    loadData();
-    const interval = setInterval(loadData, 5000);
-
-    return () => clearInterval(interval);
-
-  }, []);
 
   /* -------- Tanker Movement -------- */
 
