@@ -5,6 +5,7 @@ import {
   Popup,
   Marker,
   Polyline,
+  Tooltip,
   useMap
 } from "react-leaflet";
 
@@ -135,14 +136,87 @@ useEffect(() => {
               click: () => setSelectedVillage(village)
             }}
           >
-            <Popup>
-              <strong>{village.name}</strong>
-              <br />
-              Status: {status}
-              <br />
-              WSS: {village.WSS}
-              <br />
-              Tankers: {village.tankers}
+            <Tooltip direction="top" offset={[0, -15]} permanent={false}>
+              📍 {village.name}
+            </Tooltip>
+            
+            <Popup maxWidth={300}>
+              <div className="map-popup">
+                <h3 style={{ margin: "8px 0", color: "#2563eb", fontWeight: "700" }}>
+                  📍 {village.name}
+                </h3>
+                
+                <div style={{ fontSize: "12px", lineHeight: "1.8", color: "#e0e0e0" }}>
+                  <p style={{ margin: "6px 0" }}>
+                    <strong>Status:</strong> 
+                    <span style={{ 
+                      marginLeft: "8px",
+                      padding: "2px 8px",
+                      borderRadius: "4px",
+                      backgroundColor: getColor(status) + "40",
+                      color: getColor(status),
+                      fontWeight: "700"
+                    }}>
+                      {status}
+                    </span>
+                  </p>
+                  
+                  <p style={{ margin: "6px 0" }}>
+                    <strong>💧 WSS:</strong> {village.WSS || "N/A"}
+                  </p>
+                  
+                  <p style={{ margin: "6px 0" }}>
+                    <strong>🚛 Tankers Available:</strong> {village.tankers || 0}
+                  </p>
+                  
+                  <hr style={{ borderColor: "rgba(100,150,200,0.3)", margin: "8px 0" }} />
+                  
+                  <p style={{ margin: "6px 0" }}>
+                    <strong>🌱 Soil Moisture:</strong> {village.soil || "N/A"}%
+                  </p>
+                  
+                  <p style={{ margin: "6px 0" }}>
+                    <strong>💦 Groundwater Level:</strong> {village.groundwater || "N/A"} m
+                  </p>
+                  
+                  <p style={{ margin: "6px 0" }}>
+                    <strong>🌡 Temperature:</strong> {village.temp || "N/A"}°C
+                  </p>
+                  
+                  <hr style={{ borderColor: "rgba(100,150,200,0.3)", margin: "8px 0" }} />
+                  
+                  <p style={{ margin: "6px 0", fontSize: "11px", opacity: "0.7" }}>
+                    <strong>📍 Coordinates:</strong> {village.lat?.toFixed(2)}, {village.lng?.toFixed(2)}
+                  </p>
+                </div>
+                
+                <button
+                  onClick={() => setSelectedVillage(village)}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    marginTop: "10px",
+                    backgroundColor: "#2563eb",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    fontSize: "12px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    transition: "all 0.3s"
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = "#1d4ed8";
+                    e.target.style.filter = "brightness(1.1)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = "#2563eb";
+                    e.target.style.filter = "brightness(1)";
+                  }}
+                >
+                  👁 View Details
+                </button>
+              </div>
             </Popup>
           </CircleMarker>
         );
