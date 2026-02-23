@@ -50,13 +50,14 @@ function InfoPanel({ village, setDispatch }) {
       <p>🌱 Soil Moisture: {village.soil}%</p>
       <p>💧 Groundwater Level: {village.groundwater} m</p>
       <p>🌡 Temperature: {village.temp}°C</p>
-<button
-  className={`dispatch-btn ${risk === "High" ? "attention" : ""}`}
-  onClick={() => setDispatch(true)}
-  disabled={!village}
->
-  🚛 Dispatch Tanker
-</button>
+
+      <button
+        className={`dispatch-btn ${risk === "High" ? "attention" : ""}`}
+        onClick={() => setDispatch(true)}
+        disabled={!village}
+      >
+        🚛 Dispatch Tanker
+      </button>
     </motion.div>
   );
 }

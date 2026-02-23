@@ -89,6 +89,36 @@ body {
 .status-badge.critical { background: #e74c3c; }
 .status-badge.emergency { background: #8b0000; }
 
+/* ---------------- Risk Badge ---------------- */
+
+.risk-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 15px;
+}
+
+.risk-badge.low { 
+  background: rgba(46, 204, 113, 0.3);
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+.risk-badge.moderate { 
+  background: rgba(241, 196, 15, 0.3);
+  color: #f1c40f;
+  border: 1px solid #f1c40f;
+}
+
+.risk-badge.high { 
+  background: rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
 /* ---------------- Metrics ---------------- */
 
 .metric {
