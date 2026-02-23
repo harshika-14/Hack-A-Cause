@@ -7,34 +7,43 @@ import AlertPanel from "./components/AlertPanel";
 import WssChart from "./components/WssChart";
 
 function App() {
-  
   const [selectedVillage, setSelectedVillage] = useState(null);
   const [dispatch, setDispatch] = useState(false);
+
   return (
     <div className="app">
       <header className="navbar">
         💧 JalRakshak – Rural Water Dashboard
       </header>
 
+      {/* Top Stats */}
+      <StatsBar />
+
+      {/* Alerts */}
+      <AlertPanel />
+
+      {/* Main Section */}
       <div className="content">
         <div className="map-section">
           <MapSection
             setSelectedVillage={setSelectedVillage}
             selectedVillage={selectedVillage}
             dispatch={dispatch}
-            />
+          />
         </div>
 
         <div className="info-section">
-         <InfoPanel
-             village={selectedVillage}
-             setDispatch={setDispatch}
-         />
+          <InfoPanel
+            village={selectedVillage}
+            setDispatch={setDispatch}
+          />
         </div>
       </div>
-       <StatsBar />
-       <AlertPanel />
-       <WssChart village={selectedVillage} />
+
+      {/* WSS Chart - Scrollable */}
+      <div className="bottom-section">
+        <WssChart village={selectedVillage} />
+      </div>
     </div>
   );
 }
