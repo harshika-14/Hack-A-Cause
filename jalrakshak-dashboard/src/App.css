@@ -27,7 +27,6 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-/* ---------------- Layout ---------------- */
 
 .content {
   flex: 1;
@@ -37,8 +36,6 @@ body {
   height: calc(100vh - 70px);
 }
 
-/* ---------------- Map Section ---------------- */
-
 .map-section {
   flex: 2;
   background: rgba(255,255,255,0.08);
@@ -47,7 +44,7 @@ body {
   overflow: hidden;
 }
 
-/* ---------------- Info Panel ---------------- */
+
 
 .info-card {
   flex: 1;
@@ -60,6 +57,7 @@ body {
   flex-direction: column;
   gap: 12px;
   transition: 0.3s ease;
+  overflow-y: auto;
 }
 
 .collapsed {
@@ -68,8 +66,20 @@ body {
   opacity: 0.7;
 }
 
+.expanded {
+  height: auto !important;
+  min-height: 420px;
+}
+
 .expanded h2 {
-  margin-bottom: 5px;
+  margin: 0 0 5px 0;
+  font-size: 22px;
+}
+
+.expanded p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 /* ---------------- Status Badge ---------------- */
@@ -144,7 +154,7 @@ body {
   transition: width 0.5s ease;
 }
 
-/* ---------------- Tanker Highlight ---------------- */
+
 
 .tanker-box {
   padding: 12px;
